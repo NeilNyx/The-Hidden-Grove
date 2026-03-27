@@ -5,8 +5,8 @@ const Row = styled.div`
     flex-direction: column;
     gap: 1.6rem;
 
-    ${({ type }) =>
-        type === "horizontal" &&
+    ${({ $type }) =>
+        $type === "horizontal" &&
         css`
             flex-direction: row;
             justify-content: space-between;

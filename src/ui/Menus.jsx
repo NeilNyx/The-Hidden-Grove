@@ -19,7 +19,7 @@ const StyledToggle = styled.button`
     transition: all 0.2s;
 
     &:hover {
-        background-color: var(--color-grey-100);
+        background-color: var(--color-grey-200);
     }
 
     & svg {
@@ -31,6 +31,7 @@ const StyledToggle = styled.button`
 
 const StyledList = styled.ul`
     position: absolute;
+    width: 18rem;
 
     background-color: var(--color-grey-0);
     box-shadow: var(--shadow-md);
@@ -54,7 +55,7 @@ const StyledButton = styled.button`
     gap: 1.6rem;
 
     &:hover {
-        background-color: var(--color-grey-50);
+        background-color: var(--color-grey-100);
     }
 
     & svg {
@@ -94,12 +95,12 @@ function Toggle({ id }) {
 
     function handleClick(e) {
         const rect = e.target.closest("button").getBoundingClientRect();
+        const menuWidth = 150;
 
         setPosition({
-            x: rect.left + window.scrollX,
+            x: rect.left + window.scrollX - menuWidth,
             y: rect.bottom + window.scrollY + 8,
         });
-        console.log(rect);
 
         openId === "" || openId !== id ? open(id) : close();
     }
