@@ -13,7 +13,7 @@ function UpdateSettingsForm() {
             min_booking_length,
             max_booking_length,
             max_guest_per_booking,
-            breafast_price,
+            breakfast_price,
         } = {},
     } = useSettings();
 
@@ -60,9 +60,9 @@ function UpdateSettingsForm() {
                 <Input
                     type="number"
                     id="breakfast-price"
-                    defaultValue={breafast_price}
+                    defaultValue={breakfast_price}
                     disabled={isUpdating}
-                    onBlur={(e) => handleUpdate(e, "breafast_price")}
+                    onBlur={(e) => handleUpdate(e, "breakfast_price")}
                 />
             </FormRow>
         </Form>
