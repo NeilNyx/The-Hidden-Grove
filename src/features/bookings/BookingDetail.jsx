@@ -14,6 +14,7 @@ import ButtonText from "../../ui/ButtonText";
 import Spinner from "../../ui/Spinner";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Empty from "../../ui/Empty";
 
 import useBooking from "./useBooking";
 import useCheckout from "../check-in-out/useCheckout";
@@ -34,7 +35,7 @@ function BookingDetail() {
     const moveBack = useMoveBack();
 
     if (isPending) return <Spinner />;
-    if (!booking) return null;
+    if (!booking) return <Empty resourceName="booking" />;
 
     const { status, id: bookingId } = booking;
 
