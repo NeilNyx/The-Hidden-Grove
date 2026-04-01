@@ -20,6 +20,7 @@ import {
 
 import useCheckout from "../check-in-out/useCheckout";
 import useDeleteBooking from "./useDeleteBooking";
+import AlertDialog from "../../ui/AlertDialog";
 
 const Cabin = styled.div`
     font-size: 1.6rem;
@@ -54,10 +55,8 @@ function BookingRow({
         start_date: startDate,
         end_date: endDate,
         num_nights: numNights,
-        num_guests: numGuests,
         total_price: totalPrice,
         status,
-        created_at,
         cabins: { name: cabinName },
         guests: { full_name: guestName, email },
     },
@@ -119,13 +118,19 @@ function BookingRow({
                             </Menus.Button>
                         )}
                         {status === "checked-in" && (
-                            <Menus.Button
-                                icon={<HiArrowUpOnSquare />}
-                                onClick={() => checkout(bookingId)}
-                                disabled={isCheckingOut}
-                            >
-                                Check out
-                            </Menus.Button>
+                            // <Menus.Button
+                            //     icon={<HiArrowUpOnSquare />}
+                            //     onClick={() => checkout(bookingId)}
+                            //     disabled={isCheckingOut}
+                            // >
+                            //     Check out
+                            // </Menus.Button>
+
+                            <Modal.Open opens="checkout">
+                                <Menus.Button icon={<HiArrowUpOnSquare />}>
+                                    Check out
+                                </Menus.Button>
+                            </Modal.Open>
                         )}
                         <Modal.Open opens="delete">
                             <Menus.Button icon={<HiTrash />}>
@@ -136,10 +141,24 @@ function BookingRow({
                 </Menus.Menu>
 
                 <Modal.Window name="delete">
-                    <ConfirmDelete
-                        resourceName="booking"
+                    <AlertDialog
+                        title="Delete booking"
+                        description="Are you sure you want to delete this booking permanently? This action cannot be undone."
+                        confirmLabel="Delete"
+                        confirmVariation="danger"
                         disabled={isDeleting}
                         onConfirm={() => deleteBooking(bookingId)}
+                    />
+                </Modal.Window>
+
+                <Modal.Window name="checkout">
+                    <AlertDialog
+                        title="Check out booking"
+                        description="Are you sure you want to check out this guest?"
+                        confirmLabel="Check out"
+                        confirmVariation="primary"
+                        disabled={isCheckingOut}
+                        onConfirm={() => checkout(bookingId)}
                     />
                 </Modal.Window>
             </Modal>

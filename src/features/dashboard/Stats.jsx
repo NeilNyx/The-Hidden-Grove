@@ -1,32 +1,28 @@
-import { formatCurrency } from "../../utils/helpers";
-import Stat from "./Stat";
 import {
     HiOutlineBanknotes,
     HiOutlineBriefcase,
     HiOutlineCalendarDays,
     HiOutlineChartBar,
 } from "react-icons/hi2";
+import Stat from "./Stat";
+import { formatCurrency } from "../../utils/helpers";
 
-function Stats({ bookings, confirmedStays }) {
+function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
     // 1.
-    const numBookings = bookings?.length || 0;
-
+    const numBookings = bookings?.length;
     // 2.
-    const sales = bookings.reduce(
-        (acc, cur) => acc + Number(cur.total_price || 0),
-        0,
-    );
 
+    const sales = bookings.reduce((acc, cur) => acc + cur.total_price, 0);
     // 3.
-    const checkins = confirmedStays?.length || 0;
+    const checkins = confirmedStays.length;
 
     // 4.
-    const occupation = confirmedStays.reduce(
-        (acc, cur) => acc + Number(cur.num_nights || 0),
-        0,
-    );
+    const occupation =
+        confirmedStays.reduce((acc, cur) => acc + cur.num_nights, 0) /
+        (numDays * cabinCount);
 
-    console.log(confirmedStays);
+    // num checked in nights / all available nights (num days * num cabins)
+
     return (
         <>
             <Stat
@@ -51,11 +47,8 @@ function Stats({ bookings, confirmedStays }) {
                 title="Occupancy Rate"
                 color="yellow"
                 icon={<HiOutlineChartBar />}
-                value={occupation}
+                value={Math.round(occupation * 100) + "%"}
             />
-            <Stat />
-            <Stat />
-            <Stat />
         </>
     );
 }

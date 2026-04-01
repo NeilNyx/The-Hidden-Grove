@@ -9,13 +9,6 @@ import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
 import styled from "styled-components";
 
-// const originalSettings = {
-//   minBookingLength: 3,
-//   maxBookingLength: 30,
-//   maxGuestsPerBooking: 10,
-//   breakfastPrice: 15,
-// };
-
 const StyledUploader = styled.div`
     margin-top: auto;
     background-color: var(--color-silver-100);
@@ -104,8 +97,6 @@ async function createBookings() {
             status,
         };
     });
-
-    console.log(finalBookings);
 
     const { error } = await supabase.from("bookings").insert(finalBookings);
     if (error) console.log(error.message);
